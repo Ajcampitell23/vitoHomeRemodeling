@@ -1,4 +1,4 @@
-/* Static version: validated inquiries open in the visitor's email application. */
+/* Contact form validation only; email delivery is not connected yet. */
 const form = document.querySelector('#contact-form');
 const status = document.querySelector('#form-status');
 const fields = ['name', 'email', 'phone', 'service', 'message'];
@@ -59,7 +59,7 @@ form?.addEventListener('submit', event => {
   event.preventDefault();
   status.textContent = '';
   if (form.elements.website.value) {
-    status.textContent = 'Unable to prepare this request. Please contact Vito by phone or email.';
+    status.textContent = 'Unable to submit this request. Please contact Vito by phone or email.';
     return;
   }
   const invalid = fields.filter(id => !validate(id));
@@ -68,12 +68,7 @@ form?.addEventListener('submit', event => {
     form.elements[invalid[0]].focus();
     return;
   }
-  const values = Object.fromEntries(fields.map(id => [id, form.elements[id].value.trim()]));
-  const subject = `Project inquiry: ${values.service}`;
-  const body = `Hi Vito,\n\n${values.message}\n\nName: ${values.name}\nEmail: ${values.email}\nPhone: ${values.phone || 'Not provided'}\nService: ${values.service}`;
-  const emailLink = document.createElement('a');
-  emailLink.href = `mailto:Vito@vitohomeremodeling.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  emailLink.click();
-  status.textContent = 'Your email draft is ready to open. Review it and press Send in your email app. If no app opens, email Vito@vitohomeremodeling.com directly or call (412) 853-4627. Your details are kept here until you leave this page.';
+  // Connect the future API endpoint here after validation succeeds.
+  status.textContent = 'Online submission is not available yet. Please contact us directly.';
 });
 document.querySelector('#year').textContent = new Date().getFullYear();

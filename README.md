@@ -14,11 +14,11 @@ Open `Index.html` in a browser. No build step or dependencies are needed. The pa
 
 ## Contact form
 
-This static version prepares an email to `Vito@vitohomeremodeling.com` in the visitor's email application. The visitor must send that draft. It does not send mail automatically, store inquiries, or claim a successful delivery. A configured email application is required; direct phone and email links are provided as alternatives.
+The form currently validates inputs only. It does not open an email application, send requests, or store inquiries. Valid submissions display an unavailable message and retain the entered details. The separate direct phone and email links remain available.
 
 Validation checks names, required services, email addresses (including @ and a dotted domain), optional phone numbers (10–15 digits), and messages (20–2,000 trimmed characters). Inline errors are associated with each field; submission focuses the first invalid field. A hidden honeypot rejects simple automated form fills. No API keys or personal data are saved in browser storage.
 
-For direct submission at deployment, replace the mailto section in `script.js` with a request to your chosen form service or backend. Repeat all validation on the server: browser validation and honeypots can be bypassed. Add rate limits, spam filtering, request size limits, and origin checks appropriate to your host. Keep credentials on the server, prevent email-header injection, handle failed requests without clearing inputs, and display success only after a confirmed response. Do not enable direct submission until the endpoint is ready.
+For direct submission at deployment, connect the marked submission handler in `script.js` to the planned API Gateway endpoint, backed by Lambda and SES. Repeat all validation on the server: browser validation and honeypots can be bypassed. Add rate limits, spam filtering, request size limits, and origin checks appropriate to your host. Keep credentials on the server, prevent email-header injection, handle failed requests without clearing inputs, and display success only after a confirmed response. Do not enable direct submission until the endpoint is ready.
 
 ## Photos and content
 
@@ -26,10 +26,8 @@ Photos and business details were taken from https://www.vitohomeremodeling.com/ 
 
 Replace the files in `assets/` with your own photos using the same names, or change their paths and descriptive alt text in the HTML. Hero and service photos use `object-fit: cover`; adjust `object-position` in CSS to change cropping.
 
-- `hero.jpg`: original homepage banner (`98d290_8c36106b87b941259ba917c8e1d4c8a5~mv2.jpg`).
 - `roofing.jpg`: original roofing image (`98d290_45144d0373d04f45b77ce8c975077806~mv2.jpg`).
 - `exterior.jpg`: original gutter image (`98d290_8a726f8c18ca4e0cb07f44dd66bc2d84~mv2.jpg`).
-- `bathroom.jpg`: original bathroom image (`74f558_4ef3f401e4a2400a8979c42d1a7ba1a7~mv2_d_5760_3840_s_4_2.jpeg`).
 - `vito.jpg`: original owner image (`98d290_492ab04987834068995092a3754f72ef~mv2.png`).
 
 For a case-sensitive host that expects lowercase `index.html`, rename `Index.html` before deployment.
