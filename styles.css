@@ -5,9 +5,9 @@
 @media(max-width:650px){.container{width:calc(100% - 36px)}.topbar{font-size:9px}.topbar a{font-size:0}.topbar a:after{content:'Call (412) 853-4627';font-size:10px}.topbar a span,.since{display:none}.header{height:82px;position:relative}.brand{font-size:29px}.brand svg{width:34px}.brand-sub{font-size:7px}.menu-toggle{display:block;background:transparent;border:1px solid var(--line);border-radius:3px;padding:8px 12px;color:var(--ink);font-size:12px}.menu-toggle span{margin-left:8px}.header nav{display:none;position:absolute;top:73px;left:0;right:0;background:var(--cream);padding:22px;z-index:10;box-shadow:0 12px 18px #0002;border:1px solid var(--line);align-items:stretch;gap:20px}.header nav.open{display:flex;flex-direction:column}.hero{grid-template-columns:1fr;padding:15px 0 26px;gap:30px}h1{font-size:clamp(42px,11vw,60px);letter-spacing:-2px}.eyebrow{font-size:9px;margin-bottom:17px}.intro{font-size:14px;margin-top:18px;max-width:390px}.hero-actions{flex-direction:row;align-items:center;gap:18px;margin-top:23px}.hero-actions .button{padding:13px 15px;gap:15px;font-size:11px}.text-link{font-size:10px}.hero-note{margin-top:16px}.hero-visual{height:290px;margin-right:8px}.experience{top:20px;right:-8px;padding:13px 17px}.experience strong{font-size:30px}.image-label{left:20px;bottom:22px;font-size:18px}.trust-strip{display:grid;grid-template-columns:1fr 1fr;gap:14px 9px;font-size:9px;padding-block:19px}.trust-strip b{margin-right:4px}.section{padding-block:39px}h2{font-size:29px;letter-spacing:-1px}.section-heading{margin-bottom:22px}.service-grid{grid-template-columns:1fr;gap:25px}.service-image{height:220px}.card-title{margin-top:12px}.card-title h3{font-size:20px}.service-card p{max-width:none;margin-top:5px}.services-footer{font-size:11px;text-align:left;margin-top:24px}.services-footer a{display:inline-block;margin:4px 0 0}.about{grid-template-columns:1fr}.owner-photo{min-height:250px}.about-copy{padding:28px 23px}.about-copy h2{font-size:30px}.contact{margin-top:39px}.contact-grid{grid-template-columns:1fr;gap:28px}.contact-copy h2{font-size:40px}.contact-copy h2 br:nth-child(2){display:none}.contact-copy>p:not(.eyebrow){margin-top:17px}.contact-phone{margin-top:20px}.location{margin-top:20px;padding-top:13px}.contact-form{padding:24px 20px}.form-row{gap:10px}.footer{flex-wrap:wrap;gap:15px;padding-block:22px}.footer p{order:3;width:100%;border-top:1px solid var(--line);padding-top:14px}input,select,textarea{font-size:16px}.form-note{font-size:11px}}
 .trust-strip + .about{margin-top:45px}
 .header a[aria-current="page"]{color:var(--orange)}
-.services-intro{padding-block:30px 38px}
+.services-intro{padding-block:30px 38px;text-align:center}
 .services-intro h1{font-size:clamp(40px,5vw,62px)}
-.services-intro>p:last-child{max-width:540px;color:var(--muted);margin-top:20px}
+.services-intro>p:last-child{max-width:540px;color:var(--muted);margin-top:20px;margin-inline:auto}
 .service-jumpbar{position:sticky;top:0;z-index:5;background:#000;color:#fff;--line:#fff;border-block:1px solid var(--line)}
 .service-jumpbar>.container{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
 .service-jumpbar a{display:flex;align-items:center;justify-content:center;text-align:center;gap:10px;padding:19px 14px;font-size:12px;font-weight:600;min-height:62px;border-right:1px solid var(--line)}
@@ -40,7 +40,7 @@
 .slideshow-counter{font-size:11px;min-width:44px;text-align:center;padding-inline:6px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
 
-.service-detail-copy > .button{justify-content:center;text-align:center}
+.service-detail-copy > .button{display:flex;width:fit-content;max-width:100%;margin-inline:auto;justify-content:center;text-align:center}
 
 .site-header{background:#262626;color:#fff}
 .brand-sub{letter-spacing:1.2px}
@@ -69,3 +69,6 @@
 .hero-copy{text-align:center}
 .hero-copy .intro,.hero-copy .hero-actions{margin-inline:auto}
 .hero-copy .hero-note{justify-content:center}
+
+.hero-copy .eyebrow .dot:last-child{margin-right:0;margin-left:7px}
+.about-copy h2.signature{font-family:Georgia,serif;font-weight:400;letter-spacing:normal;margin-top:0}
