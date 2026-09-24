@@ -14,11 +14,17 @@ Open `Index.html` in a browser. No build step or dependencies are needed. The pa
 
 ## Contact form
 
-The form currently validates inputs only. It does not open an email application, send requests, or store inquiries. Valid submissions display an unavailable message and retain the entered details. The separate direct phone and email links remain available.
+The form matches the supplied SES Lambda handler. `CONTACT_API_URL` at the top of `script.js` is configured to `https://sxe7pylr44.execute-api.us-east-2.amazonaws.com/default/sendProjectEmail`. Valid submissions POST to this endpoint. Submission tests replace the URL with a mocked endpoint and never send live requests.
 
-Validation checks names, required services, email addresses (including @ and a dotted domain), optional phone numbers (10–15 digits), and messages (20–2,000 trimmed characters). Inline errors are associated with each field; submission focuses the first invalid field. A hidden honeypot rejects simple automated form fills. No API keys or personal data are saved in browser storage.
+Requests use POST with `Content-Type: application/json` and exactly these fields: `firstName`, `lastName`, `email`, `phone`, and `project`. The project field combines the selected service and message. First name, last name, email, phone, service, and message are required. Names allow 1-80 characters; email requires an @ and dotted domain; phone requires 10-15 digits; message requires 20-2,000 characters. The honeypot and inline validation remain enabled.
 
-For direct submission at deployment, connect the marked submission handler in `script.js` to the planned API Gateway endpoint, backed by Lambda and SES. Repeat all validation on the server: browser validation and honeypots can be bypassed. Add rate limits, spam filtering, request size limits, and origin checks appropriate to your host. Keep credentials on the server, prevent email-header injection, handle failed requests without clearing inputs, and display success only after a confirmed response. Do not enable direct submission until the endpoint is ready.
+The submit button is disabled while sending. A successful response must be HTTP 2xx with the Lambda's JSON message `Project request received`. Errors preserve the entered details; ambiguous network failures do not retry automatically. Requests time out after 20 seconds. No browser AWS credentials are needed. The separate direct contact links remain available.
+
+### API Gateway setup
+
+Use a Lambda proxy integration so the JSON request reaches `event.body`. Configure cross-origin access for the website's exact origin, POST, and the Content-Type header, and support OPTIONS preflight. For HTTP APIs, API Gateway can manage CORS. For REST proxy APIs, configure OPTIONS and include the appropriate Access-Control-Allow-Origin header in Lambda success and error responses (the supplied handler currently returns only Content-Type). See [HTTP API CORS](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-cors.html) and [REST API CORS](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-cors.html). Preview through a local HTTP server whose origin is allowed, rather than a file:// URL.
+
+The supplied handler's required-field and email checks are compatible. Client-side restrictions and the honeypot can be bypassed, so repeat desired length, type, phone, and spam checks server-side. Avoid logging the entire event, which includes customer contact details. This change does not deploy or modify AWS resources.
 
 ## Photos and content
 
