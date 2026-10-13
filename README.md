@@ -38,3 +38,11 @@ Replace the files in `assets/` with your own photos using the same names, or cha
 
 For a case-sensitive host that expects lowercase `index.html`, rename `Index.html` before deployment.
 
+
+## Google reviews
+
+`reviews.js` fetches public JSON from `REVIEWS_API_URL`. No Google API key is included in the frontend. The configured `/reviews` route returns HTTP 200 with live Places data. Allow the site's origin in API Gateway CORS. Loading, empty results, network errors, and a retry button are supported. The carousel supports touch/trackpad scrolling, keyboard arrows when focused, and Previous/Next buttons.
+
+Expected data is a Places-style object: `displayName.text` (or `businessName`), numeric `rating`, `userRatingCount` (or `reviewCount` / `totalReviews`), `googleMapsUri`, and `reviews`. Each review can include `authorAttribution.displayName`, `authorAttribution.uri`, `authorAttribution.photoUri`, `rating`, `text.text` or string `text`, `publishTime`, `relativePublishTimeDescription`, and `googleMapsUri`. Direct objects and `body`, `place`, `result`, or `data` wrappers are supported. Keep author attribution and source links in the Lambda response. Review text is rendered as text, never HTML, and external URLs must use HTTPS. The returned order is preserved; no review data is persisted in browser storage.
+
+The Google button is shown only when a valid returned `googleMapsUri` is available. Overall review count reflects the API's total, not the number of review cards returned. The integration was checked with fixtures using `node verify-reviews.cjs`; the live endpoint returned a 4.9 rating, 21 total reviews, and five review records when checked on October 12, 2026. Browser access also depends on CORS for the site origin. Google attribution guidance: https://developers.google.com/maps/documentation/places/web-service/policies
