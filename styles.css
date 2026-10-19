@@ -210,3 +210,41 @@
 .site-footer .footer-actions .button{font-size:11px;white-space:nowrap;min-height:44px;padding:10px 14px}
 @media(max-width:1100px){.site-footer .footer{grid-template-columns:1fr auto}.site-footer .footer-actions{grid-column:2;grid-row:1}.site-footer .footer>p{grid-column:1 / -1;grid-row:2;width:100%;padding-top:16px;border-top:1px solid #485565}}
 @media(max-width:650px){.site-footer .footer{grid-template-columns:1fr}.site-footer .footer-brand{justify-self:center}.site-footer .footer-actions{grid-column:1;grid-row:2;justify-self:center;justify-content:center;flex-wrap:wrap}.site-footer .footer>p{grid-row:3}}
+/* Full-width homepage truck photo. */
+.hero.hero-background{width:100%;margin:0;display:flex;flex-direction:column;justify-content:center;gap:24px;min-height:calc(100svh - 100px);padding:32px max(24px,calc((100% - 1160px)/2)) 20px;background-color:var(--ink);background-image:linear-gradient(rgba(15,23,32,.58),rgba(15,23,32,.68)),url('images/branding/full_truck.png');background-size:cover;background-position:center;color:#fff}
+.hero-background .hero-tagline{max-width:1000px;color:#fff}
+.hero-background .hero-tagline .dot{background:#a8c4e0}
+.hero-background .hero-copy{width:100%;max-width:760px}
+.hero-background h1{font-size:clamp(44px,5vw,66px);text-shadow:0 2px 16px #0005}
+.hero-background h1 em{color:#c0d5ea}
+.hero-background .intro{max-width:520px;color:#fff;text-shadow:0 1px 8px #0008}
+.hero-background .hero-note,.hero-background .hero-action-divider,.hero-background .separator{color:#eef3f8}
+.hero-background .hero-actions{margin-top:22px}
+.hero-background .scroll-cue-slot{width:100%;min-height:54px;margin-top:auto}
+.hero-background .scroll-cue{color:#fff}
+.hero-background .scroll-cue.is-floating{background:var(--ink);border-color:#65788e;color:#fff}
+@media(max-width:650px){.hero.hero-background{min-height:calc(100svh - 82px);padding:26px 18px 18px;gap:22px;background-position:52% center}.hero-background h1{font-size:clamp(42px,10vw,60px)}.hero-background .hero-tagline{font-size:11px}.hero-background .intro{font-size:14px}}
+.services-page .about{margin-block:30px 38px}
+.services-page .about-copy h1.signature{font-family:Georgia,serif;font-weight:400;font-size:32px;letter-spacing:normal;line-height:1.15;margin-top:0}
+@media(max-width:650px){.services-page .about{margin-block:20px 28px}.services-page .about-copy h1.signature{font-size:30px}}
+
+.hero-background + .contact{margin-top:0}
+
+.project-prompt-section{background:var(--ink);padding-block:24px 36px}
+.project-prompt-section .contact-intro-prompt{background:#fff;color:var(--ink);border-radius:14px;padding:28px 24px}
+@media(max-width:650px){.project-prompt-section{padding-block:18px 26px}.project-prompt-section .contact-intro-prompt{padding:24px 18px}}
+
+/* White service cards on the shared charcoal background. */
+.services-page{background:var(--ink)}
+.services-page .services-cta{background:#fff;border-radius:14px;color:var(--ink)}
+.services-page .service-stack{display:grid;gap:28px;padding-block:28px 36px}
+.services-page .service-detail{background:#fff;color:var(--ink);border:0;border-radius:14px;padding:32px;min-width:0}
+.services-page .service-detail-copy{min-width:0}
+@media(max-width:650px){.services-page .service-stack{gap:20px;padding-block:20px 28px}.services-page .service-detail{padding:20px 18px}.services-page .service-detail-copy .button{max-width:100%;white-space:normal}}
+.services-about-wrap{background:var(--cream);padding-block:30px 38px}
+.services-page .services-about-wrap .about{margin-block:0;background:#e7ecf2;border-radius:7px}
+@media(max-width:650px){.services-about-wrap{padding-block:20px 28px}}
+
+.service-jumpbar{border-bottom:0}
+
+.hero-background a.scroll-cue:hover{color:#fff}
