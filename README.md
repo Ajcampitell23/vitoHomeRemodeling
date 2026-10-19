@@ -1,10 +1,10 @@
 # Vito Home Remodeling redesign
 
-Open `Index.html` in a browser. No build step or dependencies are needed. The page works at desktop and mobile sizes. Google Fonts are optional; system fonts are used if unavailable.
+Open `index.html` in a browser. No build step or dependencies are needed. The page works at desktop and mobile sizes. Google Fonts are optional; system fonts are used if unavailable.
 
 ## Files
 
-- `Index.html`: page content and accessible contact form.
+- `index.html`: page content and accessible contact form.
 - `services.html`: roofing, gutters, exterior, and interior service sections with a sticky jump bar. Estimate links return to the homepage contact form.
 - `slideshows.js`: service photo slideshows with 5-second intervals, fading transitions, previous/next and pause controls. Autoplay pauses offscreen and in hidden tabs; reduced-motion preferences disable autoplay by default.
 - `images/`: additional labeled AVIF photos, grouped by service in `services.html`. Roofing and gutters retain their original image first; exterior and interior slideshows use only uploaded photos. Additional photos load as needed; failed images are skipped.
@@ -36,7 +36,7 @@ Replace the files in `assets/` with your own photos using the same names, or cha
 - `exterior.jpg`: original gutter image (`98d290_8a726f8c18ca4e0cb07f44dd66bc2d84~mv2.jpg`).
 - `vito.jpg`: original owner image (`98d290_492ab04987834068995092a3754f72ef~mv2.png`).
 
-For a case-sensitive host that expects lowercase `index.html`, rename `Index.html` before deployment.
+The homepage and all internal links use lowercase `index.html` for case-sensitive hosting.
 
 
 ## Google reviews
@@ -46,3 +46,21 @@ For a case-sensitive host that expects lowercase `index.html`, rename `Index.htm
 Expected data is a Places-style object: `displayName.text` (or `businessName`), numeric `rating`, `userRatingCount` (or `reviewCount` / `totalReviews`), `googleMapsUri`, and `reviews`. Each review can include `authorAttribution.displayName`, `authorAttribution.uri`, `authorAttribution.photoUri`, `rating`, `text.text` or string `text`, `publishTime`, `relativePublishTimeDescription`, and `googleMapsUri`. Direct objects and `body`, `place`, `result`, or `data` wrappers are supported. Keep author attribution and source links in the Lambda response. Review text is rendered as text, never HTML, and external URLs must use HTTPS. The returned order is preserved; no review data is persisted in browser storage.
 
 The Google button is shown only when a valid returned `googleMapsUri` is available. Overall review count reflects the API's total, not the number of review cards returned. The integration was checked with fixtures using `node verify-reviews.cjs`; the live endpoint returned a 4.9 rating, 21 total reviews, and five review records when checked on October 12, 2026. Browser access also depends on CORS for the site origin. Google attribution guidance: https://developers.google.com/maps/documentation/places/web-service/policies
+## AWS Amplify Hosting
+
+The source stays in the project root. `amplify.yml` runs `node build.cjs` and publishes `dist/`. Node.js 18 or newer is required for packaging; no npm dependencies or backend build are needed.
+
+- `index.html`, `services.html`, `faq.html`: public pages.
+- `styles.css` and browser JavaScript: public site styling and behavior.
+- `images/`: categorized website images.
+- `build.cjs`, `amplify.yml`: hosting build configuration.
+- `dist/`: generated deployment files; excluded from Git.
+- Verification scripts, README, editor settings, and Git files are not published.
+
+For a Git-connected Amplify app, select the repository root and use the committed build settings. Commit the lowercase homepage rename along with the updated links. This is a multipage static site; do not add a catch-all SPA rewrite to index.html.
+
+For a manual deployment, run `node build.cjs` and ZIP the contents of `dist/` (with index.html at the ZIP root), then upload that ZIP to Amplify Hosting. Edit the source files, not dist, and rebuild after changes.
+
+The email and reviews APIs remain hosted at their existing API Gateway endpoints. Ensure their CORS settings allow the eventual Amplify/custom-domain origin. No AWS credentials or Google API key belong in these static files. Nothing has been deployed by this preparation.
+
+Build specification reference: https://docs.aws.amazon.com/amplify/latest/userguide/yml-specification-syntax.html

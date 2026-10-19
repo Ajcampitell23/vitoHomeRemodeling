@@ -22,7 +22,7 @@ assert.ok(check('lastName', ''));
 assert.equal(check('lastName', 'Li'), '');
 assert.ok(check('service', 'invalid'));
 assert.equal(check('service', 'Interior remodeling'), '');
-const html = fs.readFileSync('Index.html', 'utf8');
+const html = fs.readFileSync('index.html', 'utf8');
 for (const match of html.matchAll(/(?:src|href)="(assets\/[^\"]+|styles.css|script.js)"/g)) assert.ok(fs.existsSync(match[1]), match[1]);
 for (const match of html.matchAll(/href="#([^\"]+)"/g)) assert.ok(html.includes(`id="${match[1]}"`), match[1]);
 console.log('Validation cases, local assets, and anchor links passed.');

@@ -1,0 +1,10 @@
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        - node build.cjs
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
