@@ -4,6 +4,7 @@ const form = document.querySelector('#contact-form');
 const status = document.querySelector('#form-status');
 const fields = ['firstName', 'lastName', 'email', 'phone', 'service', 'message'];
 let submitting = false;
+let submitted = false;
 const menu = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('#navigation');
 
@@ -25,13 +26,6 @@ document.addEventListener('keydown', event => {
     menu.focus();
   }
 });
-document.querySelectorAll('[data-service]').forEach(link => {
-  link.addEventListener('click', () => {
-    form.elements.service.value = link.dataset.service;
-    validate('service');
-  });
-});
-
 function validationMessage(id, value) {
   if (['firstName', 'lastName'].includes(id) && (value.length < 1 || value.length > 80 || !/\p{L}/u.test(value) || /[\r\n<>]/.test(value))) return 'Please enter a name (1–80 characters).';
   if (id === 'email' && (value.length > 254 || !/^[A-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Z0-9](?:[A-Z0-9-]*[A-Z0-9])?\.)+[A-Z]{2,63}$/i.test(value))) return 'Enter a valid email, such as you@example.com.';
@@ -59,7 +53,7 @@ function validate(id) {
 
 form?.addEventListener('submit', async event => {
   event.preventDefault();
-  if (submitting) return;
+  if (submitting || submitted) return;
   status.textContent = '';
   if (form.elements.website.value) {
     status.textContent = 'Unable to submit this request. Please contact Vito by phone or email.';
@@ -106,15 +100,35 @@ form?.addEventListener('submit', async event => {
     }
     const result = await response.json();
     if (result.message !== 'Project request received') throw new Error('Unexpected response');
-    status.textContent = 'Thank you! Your project request has been received.';
+    submitted = true;
+    form.classList.add('is-submitted');
+    for (const child of form.children) {
+      if (child !== status) child.inert = true;
+    }
+    status.textContent = 'Email received, Thank you!';
+    status.setAttribute('tabindex', '-1');
+    setTimeout(() => {
+      const hint = document.createElement('small');
+      hint.className = 'submission-reload-hint';
+      hint.textContent = '(reload to send another email)';
+      status.append(hint);
+    }, 1000);
+    setTimeout(() => {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelector('#google-reviews')?.scrollIntoView({
+        behavior: reducedMotion ? 'instant' : 'smooth',
+        block: 'start'
+      });
+    }, 4000);
   } catch {
     status.textContent = 'We could not confirm your submission. Your information has been kept. Please contact us directly before trying again to avoid a duplicate request.';
   } finally {
     clearTimeout(timeout);
     submitting = false;
-    button.disabled = false;
+    button.disabled = submitted;
     button.textContent = 'Submit';
     form.removeAttribute('aria-busy');
+    if (submitted) status.focus();
   }
 });
 if (form && CONTACT_API_URL) {
